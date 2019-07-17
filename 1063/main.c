@@ -2,9 +2,10 @@
 #include <stdlib.h>
 
 #define STACK_SIZE 1000
-struct Stack{
-	char v[STACK_SIZE];
-	int top;
+struct Stack
+{
+    char v[STACK_SIZE];
+    int top;
 };
 
 void push(struct Stack* s, char c);
@@ -18,45 +19,57 @@ int main()
     int d, i,j;
     j=0;
     char c[1000], g[1000],p=0;
-        struct Stack teste = {teste.top = NULL};
+    struct Stack teste = {teste.top = NULL};
 
-     while(scanf("%d", &d) && d){
+    while(scanf("%d", &d) && d)
+    {
         for (i = 0; i < d; i++)
             scanf(" %c", &g[i]);
         for (i = 0; i < d; i++)
             scanf(" %c", &c[i]);
-            g[d]=c[d]= '\0';
+        g[d]=c[d]= '\0';
         i = 0;
         j=0;
-        while(1){
-                p=tp(&teste);
-                 if(p!=0 && j < d && p==c[j]){
+        while(1)
+        {
+            p=tp(&teste);
+            //passo simples, se tu nao entender, se mata
+            if(p!=0 && j < d && p==c[j])
+            {
 
-                       pop(&teste);
+                pop(&teste);
 
-                       printf("R");
-                       j++;
-                 }
-                 else if(i < d){
-                        push(&teste, g[i]);
+                printf("R");
+                j++;
+            }
+            else if(i < d)
+            {
+                push(&teste, g[i]);
 
-                        printf("I");
-                        i++;
-                 } else break;
+                printf("I");
+                i++;
+            }
+            else
+                break;
 
 
         }
 
 
-        if(teste.top==NULL){
+        if(p==NULL)
+        {
             printf("\n");
         }
-        else{
+        else
+        {
 
             printf(" Impossible\n");
         }
-        while (p!= NULL){
-              pop(&teste);
+        //vai esvaziar a porra da pilha
+        while (p!= NULL)
+        {
+            pop(&teste);
+            p=tp(&teste);
         }
     }
 
@@ -68,29 +81,38 @@ int main()
 
 
 
-void push(struct Stack* s, char c){
-	if (s->top < (STACK_SIZE)){
-		s->top++;
-		s->v[s->top] = c;
-	}else{
-		exit(1);
-	}
+void push(struct Stack* s, char c)
+{
+    if (s->top < (STACK_SIZE))
+    {
+        s->top++;
+        s->v[s->top] = c;
+    }
+    else
+    {
+        exit(1);
+    }
 }
 
-char pop(struct Stack* s){
-	if (s->top >= 0){
-		char tmp = s->v[s->top];
-		s->top--;
-		return tmp;
-	}else{
+char pop(struct Stack* s)
+{
+    if (s->top >= 0)
+    {
+        char tmp = s->v[s->top];
+        s->top--;
+        return tmp;
+    }
+    else
+    {
 
-		return NULL;
-	}
+        return NULL;
+    }
 }
+//vai pegar o valor que esta no topo
+char tp(struct Stack* s)
+{
+    char tmp = s->v[s->top];
 
-char tp(struct Stack* s){
-		char tmp = s->v[s->top];
-
-		return tmp;
-	}
+    return tmp;
+}
 
